@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="tap.company.tap_google_pay_kit_flutter">
+
+    <application>
+        <meta-data
+            android:name="com.google.android.gsm.wallet.api.enabled"
+            android:value="true"
+            />
+    </application>
+
+
+</manifest>
