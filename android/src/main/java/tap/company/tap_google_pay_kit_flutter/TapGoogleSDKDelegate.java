@@ -44,7 +44,6 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
     @Override
     public void onGooglePayToken(@NonNull String s) {
         HashMap<String, Object> resultData = new HashMap<>();
-
         resultData.put("googlePayToken", s);
         pendingResult.success(resultData);
     }
@@ -81,42 +80,23 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
 
     public void start(Activity activity1, MethodChannel.Result callback, HashMap<String, Object> args) {
         this.pendingResult = callback;
+        this.activity = activity1;
         try {
             HashMap<String, Object> resultData = args;
-            System.out.println("All Arguments" + resultData.toString());
             String secretKey = Objects.requireNonNull(args.get("secretKey")).toString();
-            System.out.println("Secret Key :" + secretKey.toString());
             String bundleID = Objects.requireNonNull(args.get("bundleID")).toString();
-            System.out.println("Bundle ID :" + bundleID.toString());
             String countryCode = Objects.requireNonNull(args.get("countryCode")).toString();
-            System.out.println("Country Code :" + countryCode.toString());
             String transactionCurrency = Objects.requireNonNull(args.get("transactionCurrency")).toString();
-            System.out.println("Transaction Currency :" + transactionCurrency.toString());
             String allowedCardAuthMethodsString = Objects.requireNonNull(args.get("allowedCardAuthMethods")).toString();
-            System.out.println("Allowed Card Auth Methods :" + allowedCardAuthMethodsString.toString());
             String environmentModeString = Objects.requireNonNull(args.get("environmentMode")).toString();
-            System.out.println("Environment Mode :" + environmentModeString.toString());
             String gatewayId = Objects.requireNonNull(args.get("gatewayId")).toString();
-            System.out.println("Gateway ID :" + gatewayId.toString());
             String gatewayMerchantID = Objects.requireNonNull(args.get("gatewayMerchantID")).toString();
-            System.out.println("Gateway Merchant ID :" + gatewayMerchantID.toString());
+            String callbackType = Objects.requireNonNull(args.get("type")).toString();
             BigDecimal amount = new BigDecimal(Double.parseDouble((String) Objects.requireNonNull(args.get("amount")).toString()));
-            System.out.println("Amount :" + amount);
             List<String> allowedCardNetworks = (List<String>) Objects.requireNonNull(args.get("allowedCardNetworks"));
 
             SDKMode environmentMode = getSdkMode(environmentModeString);
             AllowedMethods allowedCardAuthMethods = getAllowedMethods(allowedCardAuthMethodsString);
-
-            System.out.println("Allowed card auth method :" + allowedCardAuthMethods.toString());
-            System.out.println("Environment Mode :" + environmentMode.toString());
-            System.out.println("Amount :" + amount);
-            System.out.println("Merchant Id :" + gatewayMerchantID.toString());
-            System.out.println("gateway Id :" + gatewayId.toString());
-            System.out.println("Allowed card Networks :" + allowedCardNetworks.toString());
-            System.out.println("Transaction Currency :" + transactionCurrency.toString());
-            System.out.println("Country Code :" + countryCode.toString());
-            System.out.println("Bundle ID :" + bundleID.toString());
-            System.out.println("Secret Key :" + secretKey.toString());
 
             DataConfiguration.INSTANCE.initSDK(activity1, secretKey, bundleID);
             DataConfiguration.INSTANCE.addSDKDelegate(this);
@@ -128,7 +108,17 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
             DataConfiguration.INSTANCE.setGatewayId(gatewayId); //**Required GATEWAY ID**/
             DataConfiguration.INSTANCE.setGatewayMerchantID(gatewayMerchantID); //**Required GATEWAY Merchant ID**/
             DataConfiguration.INSTANCE.setAmount(amount); //**Required Amount**/
-            DataConfiguration.INSTANCE.getTapToken(activity1, googlePayButton);
+
+
+            switch ((String) callbackType) {
+                case "GetGooglePayToken":
+                    DataConfiguration.INSTANCE.getGooglePayToken(activity1, googlePayButton);
+                    break;
+                case "GetTapToken":
+                    DataConfiguration.INSTANCE.getTapToken(activity1, googlePayButton);
+                    break;
+            }
+
 
         } catch (Exception e) {
             pendingResult.error(String.valueOf(500), "Missing params", new Object());

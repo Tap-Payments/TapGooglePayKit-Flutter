@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tap_google_pay_kit_flutter/models/model.dart';
@@ -17,38 +17,39 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var mSDKResponse;
+
   @override
   void initState() {
     super.initState();
     startSDK();
   }
 
-  var sdkResponse;
+  Future<void> configureApp() async {
+    TapGooglePayKitFlutter.configureSDK(
+      secretKey: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA",
+      bundleId: "company.tap.goSellSDKExamplee",
+      countryCode: "US",
+      transactionCurrency: "USD",
+      sdkMode: SDKMode.Sandbox,
+      allowedMethods: AllowedMethods.ALL,
+      allowedCardNetworks: [AllowedCardNetworks.VISA.name],
+      gatewayID: "tappayments",
+      gatewayMerchantID: "1124340",
+      amount: "23",
+      sdkCallbackMode: SDKCallbackMode.GetGooglePayToken,
+    );
+  }
 
   Future<void> startSDK() async {
     try {
-      TapGooglePayKitFlutter.configureSDK(
-        secretKey: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA",
-        bundleId: "company.tap.goSellSDKExamplee",
-        countryCode: "US",
-        transactionCurrency: "USD",
-        sdkMode: SDKMode.Sandbox,
-        allowedMethods: AllowedMethods.ALL,
-        allowedCardNetworks: [AllowedCardNetworks.VISA.name],
-        gatewayID: "tappayments",
-        gatewayMerchantID: "1124340",
-        amount: "23",
-      );
-
+      configureApp();
       var tapGooglePaySDKResult =
           await TapGooglePayKitFlutter.startGooglePaySDK;
 
       setState(() {
-        sdkResponse = tapGooglePaySDKResult;
+        mSDKResponse = tapGooglePaySDKResult;
       });
-      if (kDebugMode) {
-        print('>>>>>>>> $tapGooglePaySDKResult');
-      }
     } on PlatformException {
       //  platformVersion = 'Failed to get platform version.';
     }
@@ -65,7 +66,7 @@ class _MyAppState extends State<MyApp> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "SDK RESPONSE : ${sdkResponse == null ? "" : sdkResponse.toString()}",
+              "SDK RESPONSE : ${mSDKResponse == null ? "" : mSDKResponse.toString()}",
             ),
           ),
         ),

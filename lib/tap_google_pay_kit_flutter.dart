@@ -22,16 +22,17 @@ class TapGooglePayKitFlutter {
 
   /// App configurations
   static void configureSDK({
-    required String secretKey,
-    required String bundleId,
-    required String countryCode,
-    required String transactionCurrency,
-    required SDKMode sdkMode,
-    required AllowedMethods allowedMethods,
-    required List<String> allowedCardNetworks,
-    required String gatewayID,
-    required String gatewayMerchantID,
-    required String amount,
+    required String secretKey, // Tap secret key
+    required String bundleId, // App bundleID
+    required String countryCode, // countryCode
+    required String transactionCurrency, // TapCurrencyCode
+    required SDKMode sdkMode, // SdkMode enum
+    required AllowedMethods allowedMethods, // AllowedMethods enum
+    required List<String> allowedCardNetworks, // AllowedCardNetworks enum
+    required String gatewayID, // GatewayID
+    required String gatewayMerchantID, // MerchantGatewayID
+    required String amount, // Amount
+    required SDKCallbackMode sdkCallbackMode, //  SDKCallbackMode enum
   }) {
     sdkConfigurations = <String, dynamic>{
       "secretKey": secretKey,
@@ -44,6 +45,7 @@ class TapGooglePayKitFlutter {
       "gatewayId": gatewayID,
       "gatewayMerchantID": gatewayMerchantID,
       "amount": amount,
+      "type": sdkCallbackMode.name,
     };
   }
 
@@ -121,6 +123,17 @@ class TapGooglePayKitFlutter {
         errorCode: "501",
         errorMsg: 'Invalid environment mode',
         errorDescription: 'Environment mode can not empty or null',
+      );
+      return false;
+    }
+
+    if (sdkConfigurations["type"] == "" ||
+        sdkConfigurations["type"] == "null" ||
+        sdkConfigurations["type"] == null) {
+      _prepareConfigurationsErrorMap(
+        errorCode: "501",
+        errorMsg: 'Invalid SDKCallbackMode',
+        errorDescription: 'SDKCallbackMode can not empty or null',
       );
       return false;
     }
