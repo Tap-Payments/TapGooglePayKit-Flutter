@@ -6,8 +6,6 @@ A standalone Flutter kit for handling Google Pay™ (Only for Android)
 
 # Table of Contents
 
----
-
 1. [Requirements](#requirements)
 2. [Installation](#installation)
     1. [Installation with pubspec.yaml](#installation_with_pubspec)
