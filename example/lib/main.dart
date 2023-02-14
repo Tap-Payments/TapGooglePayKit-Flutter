@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tap_google_pay_kit_flutter/models/model.dart';
 import 'package:tap_google_pay_kit_flutter/tap_google_pay_kit_flutter.dart';
@@ -17,12 +18,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var mSDKResponse;
-
-  @override
-  void initState() {
-    super.initState();
-    startSDK();
-  }
 
   Future<void> configureApp() async {
     TapGooglePayKitFlutter.configureSDK(
@@ -49,7 +44,9 @@ class _MyAppState extends State<MyApp> {
         mSDKResponse = tapGooglePaySDKResult;
       });
     } catch (ex) {
-      print("Exception >>>> ${ex.toString()}");
+      if (kDebugMode) {
+        print("Exception >>>> ${ex.toString()}");
+      }
     }
   }
 
@@ -64,8 +61,27 @@ class _MyAppState extends State<MyApp> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "SDK RESPONSE : ${mSDKResponse == null ? "" : mSDKResponse.toString()}",
+              mSDKResponse == null
+                  ? ""
+                  : "SDK RESPONSE : ${mSDKResponse.toString()}",
             ),
+          ),
+        ),
+        bottomSheet: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: FilledButton(
+            style: ButtonStyle(
+              fixedSize: MaterialStateProperty.all(
+                const Size(double.infinity, 50),
+              ),
+              minimumSize: MaterialStateProperty.all(
+                const Size(double.infinity, 50),
+              ),
+            ),
+            onPressed: () {
+              startSDK();
+            },
+            child: const Text("Start"),
           ),
         ),
       ),
