@@ -22,7 +22,6 @@ A standalone Flutter kit for handling Google Pay™ (Only for Android)
 
 # Requirements
 
----
 
 To use the SDK the following requirements must be met:
 
@@ -34,7 +33,6 @@ To use the SDK the following requirements must be met:
 
 # Installation
 
----
 
 <a name="installation_with_pubspec"></a>
 
@@ -73,8 +71,6 @@ targetSdk 32
 ```
 
 
----
-
 <a name="configure_your_app"></a>
 
 ## Configure your app
@@ -99,7 +95,6 @@ targetSdk 32
       sdkCallbackMode: SDKCallbackMode.GetGooglePayToken,
     );
 ```
----
 
 <a name="sdk_enums"></a>
 ## SDK Enums
@@ -152,9 +147,7 @@ You can set the allowed card networks mode into one of the following modes:
 - **VISA**
     - ``` dart AllowedCardNetworks.VISA.name ```<br/>
 
-
----
-
+    
 <a name="sdk_methods"></a>
 ## SDK Methods
 
