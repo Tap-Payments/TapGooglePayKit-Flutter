@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tap_google_pay_kit_flutter/models/model.dart';
 import 'package:tap_google_pay_kit_flutter/tap_google_pay_kit_flutter.dart';
 
@@ -37,7 +36,6 @@ class _MyAppState extends State<MyApp> {
       gatewayID: "tappayments",
       gatewayMerchantID: "1124340",
       amount: "23",
-      sdkCallbackMode: SDKCallbackMode.GetGooglePayToken,
     );
   }
 
@@ -45,13 +43,13 @@ class _MyAppState extends State<MyApp> {
     try {
       configureApp();
       var tapGooglePaySDKResult =
-          await TapGooglePayKitFlutter.startGooglePaySDK;
+          await TapGooglePayKitFlutter.getGooglePayToken;
 
       setState(() {
         mSDKResponse = tapGooglePaySDKResult;
       });
-    } on PlatformException {
-      //  platformVersion = 'Failed to get platform version.';
+    } catch (ex) {
+      print("Exception >>>> ${ex.toString()}");
     }
   }
 

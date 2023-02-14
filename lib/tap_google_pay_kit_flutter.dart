@@ -9,9 +9,24 @@ class TapGooglePayKitFlutter {
   static const MethodChannel _channel =
       MethodChannel('tap_google_pay_kit_flutter');
 
-  static Future<dynamic> get startGooglePaySDK async {
+  static Future<dynamic> get getGooglePayToken async {
     if (!_validateAppConfig()) return _tapGooglePaySDKResult;
-    dynamic result = await _channel.invokeMethod('start', sdkConfigurations);
+    dynamic result = await _channel.invokeMethod('start', {
+      "config": sdkConfigurations,
+      "type": SDKCallbackMode.GetGooglePayToken.name
+    });
+    if (kDebugMode) {
+      print("Result >>>>>> $result");
+    }
+    return result;
+  }
+
+  static Future<dynamic> get getTapToken async {
+    if (!_validateAppConfig()) return _tapGooglePaySDKResult;
+    dynamic result = await _channel.invokeMethod('start', {
+      "config": sdkConfigurations,
+      "type": SDKCallbackMode.GetTapToken.name
+    });
     if (kDebugMode) {
       print("Result >>>>>> $result");
     }
@@ -32,7 +47,6 @@ class TapGooglePayKitFlutter {
     required String gatewayID, // GatewayID
     required String gatewayMerchantID, // MerchantGatewayID
     required String amount, // Amount
-    required SDKCallbackMode sdkCallbackMode, //  SDKCallbackMode enum
   }) {
     sdkConfigurations = <String, dynamic>{
       "secretKey": secretKey,
@@ -45,7 +59,6 @@ class TapGooglePayKitFlutter {
       "gatewayId": gatewayID,
       "gatewayMerchantID": gatewayMerchantID,
       "amount": amount,
-      "type": sdkCallbackMode.name,
     };
   }
 
@@ -123,17 +136,6 @@ class TapGooglePayKitFlutter {
         errorCode: "501",
         errorMsg: 'Invalid environment mode',
         errorDescription: 'Environment mode can not empty or null',
-      );
-      return false;
-    }
-
-    if (sdkConfigurations["type"] == "" ||
-        sdkConfigurations["type"] == "null" ||
-        sdkConfigurations["type"] == null) {
-      _prepareConfigurationsErrorMap(
-        errorCode: "501",
-        errorMsg: 'Invalid SDKCallbackMode',
-        errorDescription: 'SDKCallbackMode can not empty or null',
       );
       return false;
     }

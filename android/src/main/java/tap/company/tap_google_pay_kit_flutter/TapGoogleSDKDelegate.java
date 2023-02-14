@@ -82,18 +82,18 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
         this.pendingResult = callback;
         this.activity = activity1;
         try {
-            HashMap<String, Object> resultData = args;
-            String secretKey = Objects.requireNonNull(args.get("secretKey")).toString();
-            String bundleID = Objects.requireNonNull(args.get("bundleID")).toString();
-            String countryCode = Objects.requireNonNull(args.get("countryCode")).toString();
-            String transactionCurrency = Objects.requireNonNull(args.get("transactionCurrency")).toString();
-            String allowedCardAuthMethodsString = Objects.requireNonNull(args.get("allowedCardAuthMethods")).toString();
-            String environmentModeString = Objects.requireNonNull(args.get("environmentMode")).toString();
-            String gatewayId = Objects.requireNonNull(args.get("gatewayId")).toString();
-            String gatewayMerchantID = Objects.requireNonNull(args.get("gatewayMerchantID")).toString();
+            HashMap<String, Object> resultData = (HashMap<String, Object>) args.get("config");
+            String secretKey = Objects.requireNonNull(resultData.get("secretKey")).toString();
+            String bundleID = Objects.requireNonNull(resultData.get("bundleID")).toString();
+            String countryCode = Objects.requireNonNull(resultData.get("countryCode")).toString();
+            String transactionCurrency = Objects.requireNonNull(resultData.get("transactionCurrency")).toString();
+            String allowedCardAuthMethodsString = Objects.requireNonNull(resultData.get("allowedCardAuthMethods")).toString();
+            String environmentModeString = Objects.requireNonNull(resultData.get("environmentMode")).toString();
+            String gatewayId = Objects.requireNonNull(resultData.get("gatewayId")).toString();
+            String gatewayMerchantID = Objects.requireNonNull(resultData.get("gatewayMerchantID")).toString();
             String callbackType = Objects.requireNonNull(args.get("type")).toString();
-            BigDecimal amount = new BigDecimal(Double.parseDouble((String) Objects.requireNonNull(args.get("amount")).toString()));
-            List<String> allowedCardNetworks = (List<String>) Objects.requireNonNull(args.get("allowedCardNetworks"));
+            BigDecimal amount = new BigDecimal(Double.parseDouble((String) Objects.requireNonNull(resultData.get("amount")).toString()));
+            List<String> allowedCardNetworks = (List<String>) Objects.requireNonNull(resultData.get("allowedCardNetworks"));
 
             SDKMode environmentMode = getSdkMode(environmentModeString);
             AllowedMethods allowedCardAuthMethods = getAllowedMethods(allowedCardAuthMethodsString);
