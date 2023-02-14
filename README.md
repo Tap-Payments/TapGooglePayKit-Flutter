@@ -92,7 +92,6 @@ targetSdk 32
       gatewayID: "xxxxx",
       gatewayMerchantID: "122xxxxx",
       amount: "23",
-      sdkCallbackMode: SDKCallbackMode.GetGooglePayToken,
     );
 ```
 
