@@ -121,7 +121,6 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
 
 
         } catch (Exception e) {
-            System.out.println("Exception >>>>>" +e.toString());
             pendingResult.error(String.valueOf(500), e.toString(), new Object());
         }
 
@@ -158,7 +157,6 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
 
     @Override
     public void onFailed(@NonNull String s) {
-        System.out.println("Failed >>>>>" +s);
         pendingResult.error(String.valueOf(500), s, new Object());
     }
 

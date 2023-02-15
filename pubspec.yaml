@@ -1,5 +1,5 @@
 name: tap_google_pay_kit_flutter
-description: Flutter plugin compatible version of TapGooglePayKit library.
+description: Flutter plugin compatible version of TapGooglePayKit library for Android only.
 version: 0.0.1
 homepage: https://github.com/Tap-Payments/TapGooglePayKit-Flutter
 

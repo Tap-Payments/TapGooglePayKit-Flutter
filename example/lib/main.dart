@@ -21,15 +21,15 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> configureApp() async {
     TapGooglePayKitFlutter.configureSDK(
-      secretKey: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA",
-      bundleId: "company.tap.goSellSDKExamplee",
+      secretKey: "sk_test_xxxxxxxxxxxxxxxxxx",
+      bundleId: "com.xxx.xxxxxxx",
       countryCode: "US",
       transactionCurrency: "USD",
       sdkMode: SDKMode.Sandbox,
       allowedMethods: AllowedMethods.ALL,
       allowedCardNetworks: [AllowedCardNetworks.VISA.name],
-      gatewayID: "tappayments",
-      gatewayMerchantID: "1124340",
+      gatewayID: "xxxxx",
+      gatewayMerchantID: "122xxxxx",
       amount: "23",
     );
   }
