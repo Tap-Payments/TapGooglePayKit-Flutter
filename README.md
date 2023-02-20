@@ -40,7 +40,7 @@ To use the SDK the following requirements must be met:
 
 ```dart
  dependencies:
-     tap_google_pay_kit_flutter: ^0.0.1
+     tap_google_pay_kit_flutter: ^0.0.2
 ```
 
 

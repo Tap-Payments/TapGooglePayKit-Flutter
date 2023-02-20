@@ -155,9 +155,15 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
         return environmentMode;
     }
 
+
+
     @Override
     public void onFailed(@NonNull String s) {
-        pendingResult.error(String.valueOf(500), s, new Object());
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("Failed",s);
+        System.out.println("Errror :"+s);
+        pendingResult.success(resultMap);
+        pendingResult = null;
     }
 
     @Override
