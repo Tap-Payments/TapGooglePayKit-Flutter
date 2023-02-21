@@ -76,6 +76,7 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
         resultData.put("currency", token.getCurrency());
         resultData.put("name", token.getName());
         pendingResult.success(resultData);
+        pendingResult = null;
     }
 
     public void start(Activity activity1, MethodChannel.Result callback, HashMap<String, Object> args) {
@@ -122,6 +123,7 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
 
         } catch (Exception e) {
             pendingResult.error(String.valueOf(500), e.toString(), new Object());
+            pendingResult = null;
         }
 
     }

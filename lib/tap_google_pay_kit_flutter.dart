@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tap_google_pay_kit_flutter/models/model.dart';
 
@@ -60,6 +61,42 @@ class TapGooglePayKitFlutter {
       "gatewayMerchantID": gatewayMerchantID,
       "amount": amount,
     };
+  }
+
+  // Google pay Button Widget from TapGooglePaySDK
+  static Widget googlePayButton({
+    required GooglePayButtonType googlePayButtonType,
+    required Function()? onTap,
+  }) {
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      return SizedBox(
+        height: 80,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            AndroidView(
+              viewType: "plugin/google_pay_button",
+              creationParams: {
+                "type": googlePayButtonType.name,
+              },
+              creationParamsCodec: const StandardMessageCodec(),
+              layoutDirection: TextDirection.ltr,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 50,
+                child: InkWell(
+                  onTap: onTap,
+                  splashColor: Colors.transparent,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return const SizedBox();
   }
 
   /// validate app configurations

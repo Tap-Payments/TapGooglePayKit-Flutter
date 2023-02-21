@@ -5,6 +5,7 @@ A standalone Flutter kit for handling Google Pay™ (Only for Android)
 ## Getting Started
 
 # Table of Contents
+---
 
 1. [Requirements](#requirements)
 2. [Installation](#installation)
@@ -16,13 +17,14 @@ A standalone Flutter kit for handling Google Pay™ (Only for Android)
     3. [SDK Modes](#sdk_modes)
     4. [Allowed Methods](#allowed_methods)
     5. [Allowed Card Networks](#allowed_card_networks)
-    6. [SDK Methods](#sdk_methods)
+    6. [Google Pay Button Type](#google_pay_button_type)
+    7. [Google Pay Button](#google_pay_button_widget)
+    8. [SDK Methods](#sdk_methods)
 
 <a href="requirements"></a>
 
 # Requirements
-
-
+---
 To use the SDK the following requirements must be met:
 
 1. **Visual Studio - InteliJ Idea**
@@ -33,6 +35,7 @@ To use the SDK the following requirements must be met:
 
 # Installation
 
+---
 
 <a name="installation_with_pubspec"></a>
 
@@ -40,7 +43,7 @@ To use the SDK the following requirements must be met:
 
 ```dart
  dependencies:
-     tap_google_pay_kit_flutter: ^0.0.2
+     tap_google_pay_kit_flutter: ^0.0.3
 ```
 
 
@@ -71,6 +74,8 @@ targetSdk 32
 ```
 
 
+---
+
 <a name="configure_your_app"></a>
 
 ## Configure your app
@@ -92,8 +97,10 @@ targetSdk 32
       gatewayID: "xxxxx",
       gatewayMerchantID: "122xxxxx",
       amount: "23",
+      sdkCallbackMode: SDKCallbackMode.GetGooglePayToken,
     );
 ```
+---
 
 <a name="sdk_enums"></a>
 ## SDK Enums
@@ -146,7 +153,54 @@ You can set the allowed card networks mode into one of the following modes:
 - **VISA**
     - ``` dart AllowedCardNetworks.VISA.name ```<br/>
 
-    
+
+<a name="google_pay_button_type"></a>
+
+**GooglePayButtonType**
+
+``` dart 
+googlePayButtonType: GooglePayButtonType.NORMAL_GOOGLE_PAY
+```
+
+You can set the google pay button type into one of the following types:
+- **BUY_WITH_GOOGLE_PAY**
+    - ``` dart GooglePayButtonType.BUY_WITH_GOOGLE_PAY ```<br/>
+- **DONATE_WITH_GOOGLE_PAY**
+    - ``` dart GooglePayButtonType.DONATE_WITH_GOOGLE_PAY ```<br/>
+- **NORMAL_GOOGLE_PAY**
+    - ``` dart GooglePayButtonType.NORMAL_GOOGLE_PAY ```<br/>
+- **PAY_WITH_GOOGLE_PAY**
+    - ``` dart GooglePayButtonType.PAY_WITH_GOOGLE_PAY ```<br/>
+- **SUBSCRIBE_WITH_GOOGLE_PAY**
+    - ``` dart GooglePayButtonType.SUBSCRIBE_WITH_GOOGLE_PAY ```<br/>
+- **CHECKOUT_WITH_GOOGLE_PAY**
+    - ``` dart GooglePayButtonType.CHECKOUT_WITH_GOOGLE_PAY ```<br/>
+- **ORDER_WITH_GOOGLE_PAY**
+    - ``` dart GooglePayButtonType.ORDER_WITH_GOOGLE_PAY ```<br/>
+- **BOOK_WITH_GOOGLE_PAY**
+    - ``` dart GooglePayButtonType.BOOK_WITH_GOOGLE_PAY ```<br/>
+
+
+---
+
+
+<a name="google_pay_button_widget"></a>
+## GooglePayButton
+
+**Google Pay Button Widget**
+
+```dart
+TapGooglePayKitFlutter.googlePayButton(
+    googlePayButtonType: GooglePayButtonType.NORMAL_GOOGLE_PAY,
+     onTap: () {
+     // Call available SDK Methods
+   },
+),
+```
+
+---
+
+
 <a name="sdk_methods"></a>
 ## SDK Methods
 

@@ -19,6 +19,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var mSDKResponse;
 
+  // App configuration to use TapGooglePayKitFlutter
   Future<void> configureApp() async {
     TapGooglePayKitFlutter.configureSDK(
       secretKey: "sk_test_xxxxxxxxxxxxxxxxxx",
@@ -33,6 +34,8 @@ class _MyAppState extends State<MyApp> {
       amount: "23",
     );
   }
+
+  // Start SDK and Call the methods from TapGooglePayKitFlutter
 
   Future<void> startSDK() async {
     try {
@@ -50,6 +53,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  // Build Widget
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -67,22 +71,11 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-        bottomSheet: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: FilledButton(
-            style: ButtonStyle(
-              fixedSize: MaterialStateProperty.all(
-                const Size(double.infinity, 50),
-              ),
-              minimumSize: MaterialStateProperty.all(
-                const Size(double.infinity, 50),
-              ),
-            ),
-            onPressed: () {
-              startSDK();
-            },
-            child: const Text("Start"),
-          ),
+        bottomSheet: TapGooglePayKitFlutter.googlePayButton(
+          googlePayButtonType: GooglePayButtonType.NORMAL_GOOGLE_PAY,
+          onTap: () {
+            startSDK();
+          },
         ),
       ),
     );

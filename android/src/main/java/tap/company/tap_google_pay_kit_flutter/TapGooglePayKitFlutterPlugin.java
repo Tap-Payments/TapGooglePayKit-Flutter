@@ -153,8 +153,9 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
         pluginBinding = binding;
-//        pluginBinding.getPlatformViewRegistry()
-//                .registerViewFactory("<platform-view-type>", new NativeViewFactory());
+        System.out.println("View Type ID >>>>>>>");
+        pluginBinding.getPlatformViewRegistry()
+                .registerViewFactory("plugin/google_pay_button", new GooglePayButtonFactory());
     }
 
     @Override
