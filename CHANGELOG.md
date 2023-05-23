@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Android Minimum sdk version updated 
+
 ## 0.0.3
 
 - Google Pay Button UI Added
