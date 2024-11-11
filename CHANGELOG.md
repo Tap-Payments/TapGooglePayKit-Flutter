@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Update TapGooglePayKit dependency to version 1.0.0
+
 ## 0.0.4
 
 - Android Minimum sdk version updated 
