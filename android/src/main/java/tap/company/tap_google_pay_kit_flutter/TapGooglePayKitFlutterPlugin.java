@@ -116,26 +116,6 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
     private LifeCycleObserver observer;
     private static final String CHANNEL = "tap_google_pay_kit_flutter";
 
-    /**
-     * Register with
-     *
-     * @param registrar
-     */
-
-    public static void registerWith(PluginRegistry.Registrar registrar) {
-        if (registrar.activity() == null) {
-            // If a background flutter view tries to register the plugin, there will be no activity from the registrar,
-            // we stop the registering process immediately because the SDK requires an activity.
-            return;
-        }
-        Activity activity = registrar.activity();
-        Application application = null;
-        if (registrar.context() != null) {
-            application = (Application) (registrar.context().getApplicationContext());
-        }
-        TapGooglePayKitFlutterPlugin plugin = new TapGooglePayKitFlutterPlugin();
-        plugin.setup(registrar.messenger(), application, activity, registrar, null);
-    }
 
 
     /**
@@ -170,7 +150,6 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
                 pluginBinding.getBinaryMessenger(),
                 (Application) pluginBinding.getApplicationContext(),
                 activityBinding.getActivity(),
-                null,
                 activityBinding);
     }
 
@@ -198,7 +177,6 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
             final BinaryMessenger messenger,
             final Application application,
             final Activity activity,
-            final PluginRegistry.Registrar registrar,
             final ActivityPluginBinding activityBinding) {
         this.activity = activity;
         this.application = application;
@@ -206,12 +184,7 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
         channel = new MethodChannel(messenger, "tap_google_pay_kit_flutter");
         channel.setMethodCallHandler(this);
         observer = new LifeCycleObserver(activity);
-        if (registrar != null) {
-            // V1 embedding setup for activity listeners.
-            application.registerActivityLifecycleCallbacks(observer);
-            registrar.addActivityResultListener(delegate);
-            registrar.addRequestPermissionsResultListener(delegate);
-        } else {
+        if (activityBinding != null) {
             // V2 embedding setup for activity listeners.
             activityBinding.addActivityResultListener(delegate);
             activityBinding.addRequestPermissionsResultListener(delegate);
