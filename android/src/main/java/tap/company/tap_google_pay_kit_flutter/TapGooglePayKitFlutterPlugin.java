@@ -26,8 +26,6 @@ import io.flutter.plugin.common.PluginRegistry;
  */
 public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHandler, FlutterPlugin, ActivityAware {
 
-
-
     /**
      * LifeCycleObserver
      */
@@ -116,7 +114,16 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
     private LifeCycleObserver observer;
     private static final String CHANNEL = "tap_google_pay_kit_flutter";
 
+    /**
+     * Register with
+     *
+     * @param registrar
+     */
 
+    public static void registerWith(Object registrar) {
+        // This method is kept for compatibility with older Flutter versions
+        // but is no longer used with the v2 embedding API
+    }
 
     /**
      * Default constructor for the plugin.
@@ -125,7 +132,6 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
      */
     public TapGooglePayKitFlutterPlugin() {
     }
-
 
     /**
      * @param binding
@@ -150,6 +156,7 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
                 pluginBinding.getBinaryMessenger(),
                 (Application) pluginBinding.getApplicationContext(),
                 activityBinding.getActivity(),
+                null,
                 activityBinding);
     }
 
@@ -162,7 +169,6 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
     public void onDetachedFromActivityForConfigChanges() {
         onDetachedFromActivity();
     }
-
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
@@ -177,6 +183,7 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
             final BinaryMessenger messenger,
             final Application application,
             final Activity activity,
+            final Object registrar, // Changed from PluginRegistry.Registrar
             final ActivityPluginBinding activityBinding) {
         this.activity = activity;
         this.application = application;
@@ -184,7 +191,10 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
         channel = new MethodChannel(messenger, "tap_google_pay_kit_flutter");
         channel.setMethodCallHandler(this);
         observer = new LifeCycleObserver(activity);
-        if (activityBinding != null) {
+        if (registrar != null) {
+            // V1 embedding setup for activity listeners is no longer supported
+            application.registerActivityLifecycleCallbacks(observer);
+        } else {
             // V2 embedding setup for activity listeners.
             activityBinding.addActivityResultListener(delegate);
             activityBinding.addRequestPermissionsResultListener(delegate);
@@ -192,7 +202,6 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
 //            lifecycle.addObserver(observer);
         }
     }
-
 
     /**
      * tearDown()
@@ -210,7 +219,6 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
         application.unregisterActivityLifecycleCallbacks(observer);
         application = null;
     }
-
 
     /**
      * construct delegate
@@ -275,7 +283,7 @@ public class TapGooglePayKitFlutterPlugin implements MethodChannel.MethodCallHan
 
         if (call.method.equals("terminate_session")) {
             System.out.println("terminate session!");
-          //  delegate.terminateSDKSession();
+            //  delegate.terminateSDKSession();
             return;
         }
         MethodChannel.Result result = new MethodResultWrapper(rawResult);
