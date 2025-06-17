@@ -2,6 +2,7 @@ group 'tap.company.tap_google_pay_kit_flutter'
 version '1.0'
 
 buildscript {
+    ext.kotlin_version = '2.1.0'
     repositories {
         google()
         mavenCentral()
@@ -23,8 +24,8 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 34
-    namespace 'tap.company.tap_google_pay_kit_flutter'
+    namespace "company.tap.google.pay.kit.flutter"
+    compileSdkVersion 31
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -37,6 +38,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.Tap-Payments:TapGooglePayKit:1.0.2'
-    implementation "com.google.android.gms:play-services-wallet:19.4.0"
+    implementation 'com.github.Tap-Payments:TapGooglePayKit:1.0.0'
+    implementation "com.google.android.gms:play-services-wallet:18.1.3"
 }
