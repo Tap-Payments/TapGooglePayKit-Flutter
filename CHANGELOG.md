@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Fix: Correct SDK mode handling in getSdkMode method
+
 ## 1.0.1
 
 - Update TapGooglePayKit dependency to version 1.0.1
