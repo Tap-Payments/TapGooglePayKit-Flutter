@@ -150,9 +150,11 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
         SDKMode environmentMode = SDKMode.ENVIRONMENT_TEST;
         switch (environmentModeDouble) {
             case "SDKMode.Sandbox":
-                environmentMode = SDKMode.ENVIRONMENT_PRODUCTION;
-            case "SDKMode.Production":
                 environmentMode = SDKMode.ENVIRONMENT_TEST;
+                return environmentMode;
+            case "SDKMode.Production":
+                environmentMode = SDKMode.ENVIRONMENT_PRODUCTION;
+                return environmentMode;
         }
         return environmentMode;
     }
