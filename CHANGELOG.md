@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Fix: Parsing amount
+
 ## 1.0.2
 
 - Fix: Correct SDK mode handling in getSdkMode method

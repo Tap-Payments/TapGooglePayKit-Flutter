@@ -93,7 +93,12 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
             String gatewayId = Objects.requireNonNull(resultData.get("gatewayId")).toString();
             String gatewayMerchantID = Objects.requireNonNull(resultData.get("gatewayMerchantID")).toString();
             String callbackType = Objects.requireNonNull(args.get("type")).toString();
-            BigDecimal amount = new BigDecimal(Double.parseDouble((String) Objects.requireNonNull(resultData.get("amount")).toString()));
+//            BigDecimal amount = new BigDecimal(Double.parseDouble((String) Objects.requireNonNull(resultData.get("amount")).toString()));
+
+            String amountStr = Objects.requireNonNull(resultData.get("amount")).toString();
+            BigDecimal amount = new BigDecimal(amountStr);
+
+
             List<String> allowedCardNetworks = (List<String>) Objects.requireNonNull(resultData.get("allowedCardNetworks"));
 
             SDKMode environmentMode = getSdkMode(environmentModeString);
