@@ -1,8 +1,8 @@
 package tap.company.tap_google_pay_kit_flutter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,16 +15,30 @@ import io.flutter.plugin.platform.PlatformView;
 
 public class GooglePayButtonViewManager implements PlatformView {
 
-    private  GooglePayButton googlePayButton;
-    private View view;
+    private GooglePayButton googlePayButton;
+    private FrameLayout containerView;
 
     GooglePayButtonViewManager(@NonNull Context context, int id, @Nullable Map<String, Object> creationParams) {
-        view = LayoutInflater.from(context).inflate(R.layout.google_pay_button_layout,null);
-        googlePayButton = view.findViewById(R.id.googlePayView);
-        googlePayButton.setGooglePayButtonType(getGooglePayType(creationParams.get("type").toString()));
-        System.out.println("Google Pay Button View Manager >>>>>>>>>>>>>>");
-    }
+        // Create views programmatically instead of using XML inflation
+        containerView = new FrameLayout(context);
+        googlePayButton = new GooglePayButton(context);
 
+        // Add GooglePayButton to the container
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+        containerView.addView(googlePayButton, params);
+
+        // Set button type if provided in creation params
+        if (creationParams != null && creationParams.containsKey("type")) {
+            googlePayButton.setGooglePayButtonType(getGooglePayType(creationParams.get("type").toString()));
+        } else {
+            // Default type
+            googlePayButton.setGooglePayButtonType(GooglePayButtonType.NORMAL_GOOGLE_PAY);
+        }
+
+        System.out.println("Google Pay Button View Manager programmatically created >>>>>>>>>>>>>>");
+    }
 
     @NonNull
     private GooglePayButtonType getGooglePayType(String typeValue) {
@@ -56,21 +70,14 @@ public class GooglePayButtonViewManager implements PlatformView {
         return type;
     }
 
-
-//    public void setType(@NonNull View view, String type) {
-//        googlePayButton = view.findViewById(R.id.googlePayView);
-//        googlePayButton.setGooglePayButtonType(getGooglePayType("BUY_WITH_GOOGLE_PAY"));
-//    }
-
     @Nullable
     @Override
     public View getView() {
-        return view;
+        return containerView;
     }
-
 
     @Override
     public void dispose() {
-
+        // Clean up any resources
     }
 }
