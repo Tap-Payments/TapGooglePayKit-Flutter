@@ -23,7 +23,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
     namespace 'tap.company.tap_google_pay_kit_flutter'
 
     compileOptions {
@@ -37,6 +37,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.Tap-Payments:TapGooglePayKit:1.0.2.1'
+    implementation 'com.github.Tap-Payments:TapGooglePayKit:1.0.2.13'
     implementation "com.google.android.gms:play-services-wallet:19.4.0"
 }

@@ -1,3 +1,8 @@
+## 1.0.6
+
+- Update TapGooglePayKit dependency to version 1.0.2.13
+- Support android 35 
+
 ## 1.0.5
 
 - Update TapGooglePayKit dependency to version 1.0.2.1
