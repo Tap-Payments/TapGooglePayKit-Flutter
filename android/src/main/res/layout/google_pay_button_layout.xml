@@ -3,16 +3,14 @@
     android:clickable="true"
     android:focusable="true"
     android:layout_width="match_parent"
-    android:layout_height="50sp"
-    android:padding="8sp"
+    android:layout_height="match_parent"
     >
 
 
     <company.tap.google.pay.open.GooglePayButton
         android:id="@+id/googlePayView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
         android:enabled="true"
         android:focusable="true"
         />

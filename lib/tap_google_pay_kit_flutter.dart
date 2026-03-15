@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:tap_google_pay_kit_flutter/models/model.dart';
 
@@ -70,26 +72,37 @@ class TapGooglePayKitFlutter {
   }) {
     if (defaultTargetPlatform == TargetPlatform.android) {
       return SizedBox(
-        height: 80,
+        height: 54,
         child: Stack(
-          alignment: Alignment.bottomCenter,
           children: [
-            AndroidView(
-              viewType: "plugin/google_pay_button",
-              creationParams: {
-                "type": googlePayButtonType.name,
-              },
-              creationParamsCodec: const StandardMessageCodec(),
-              layoutDirection: TextDirection.ltr,
+            Positioned.fill(
+              child: PlatformViewLink(
+                viewType: 'plugin/google_pay_button',
+                surfaceFactory: (context, controller) {
+                  return AndroidViewSurface(
+                    controller: controller as AndroidViewController,
+                    gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
+                    hitTestBehavior: PlatformViewHitTestBehavior.opaque,
+                  );
+                },
+                onCreatePlatformView: (params) {
+                  return PlatformViewsService.initExpensiveAndroidView(
+                    id: params.id,
+                    viewType: 'plugin/google_pay_button',
+                    layoutDirection: TextDirection.ltr,
+                    creationParams: {'type': googlePayButtonType.name},
+                    creationParamsCodec: const StandardMessageCodec(),
+                    onFocus: () => params.onFocusChanged(true),
+                  )
+                    ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+                    ..create();
+                },
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 50,
-                child: InkWell(
-                  onTap: onTap,
-                  splashColor: Colors.transparent,
-                ),
+            Positioned.fill(
+              child: GestureDetector(
+                onTap: onTap,
+                behavior: HitTestBehavior.translucent,
               ),
             ),
           ],
