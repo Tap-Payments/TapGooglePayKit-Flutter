@@ -1,3 +1,10 @@
+## 1.0.7
+
+- Replace custom GooglePayButton with PayButton for better compatibility
+- Update button layout to match parent dimensions
+- Adjust button height and padding for improved UI consistency
+- Enhance gesture handling for button interactions
+
 ## 1.0.6
 
 - Update TapGooglePayKit dependency to version 1.0.2.13
