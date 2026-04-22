@@ -26,7 +26,10 @@ public class GooglePayButtonViewManager implements PlatformView {
                 ? creationParams.get("type").toString()
                 : "PAY_WITH_GOOGLE_PAY";
 
-        int cornerRadiusPx = (int) (4 * context.getResources().getDisplayMetrics().density);
+        double cornerRadiusDp = (creationParams != null && creationParams.get("cornerRadius") != null)
+                ? ((Number) creationParams.get("cornerRadius")).doubleValue()
+                : 4.0;
+        int cornerRadiusPx = (int) (cornerRadiusDp * context.getResources().getDisplayMetrics().density);
 
         String allowedPaymentMethods =
                 "[{\"type\":\"CARD\",\"parameters\":{" +

@@ -192,11 +192,31 @@ You can set the google pay button type into one of the following types:
 ```dart
 TapGooglePayKitFlutter.googlePayButton(
     googlePayButtonType: GooglePayButtonType.NORMAL_GOOGLE_PAY,
-     onTap: () {
-     // Call available SDK Methods
-   },
+    onTap: () {
+      // Call available SDK Methods
+    },
 ),
 ```
+
+**Corner Radius**
+
+You can customise the button's corner radius (in dp) via the `cornerRadius` parameter. Defaults to `0` if not provided.
+
+```dart
+TapGooglePayKitFlutter.googlePayButton(
+    googlePayButtonType: GooglePayButtonType.NORMAL_GOOGLE_PAY,
+    cornerRadius: 20.0,
+    onTap: () {
+      // Call available SDK Methods
+    },
+),
+```
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `googlePayButtonType` | `GooglePayButtonType` | required | Visual style of the button |
+| `cornerRadius` | `double` | `0` | Button corner radius in dp |
+| `onTap` | `Function()?` | required | Callback when the button is tapped |
 
 ---
 

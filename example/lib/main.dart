@@ -71,11 +71,15 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-        bottomSheet: TapGooglePayKitFlutter.googlePayButton(
-          googlePayButtonType: GooglePayButtonType.NORMAL_GOOGLE_PAY,
-          onTap: () {
-            startSDK();
-          },
+        bottomSheet: Padding(
+          padding: const EdgeInsets.only(bottom: 50, left: 20, right: 20),
+          child: TapGooglePayKitFlutter.googlePayButton(
+            googlePayButtonType: GooglePayButtonType.NORMAL_GOOGLE_PAY,
+            cornerRadius: 20.0,
+            onTap: () {
+              startSDK();
+            },
+          ),
         ),
       ),
     );

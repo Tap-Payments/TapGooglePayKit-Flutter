@@ -69,6 +69,7 @@ class TapGooglePayKitFlutter {
   static Widget googlePayButton({
     required GooglePayButtonType googlePayButtonType,
     required Function()? onTap,
+    double cornerRadius = 0,
   }) {
     if (defaultTargetPlatform == TargetPlatform.android) {
       return SizedBox(
@@ -81,7 +82,8 @@ class TapGooglePayKitFlutter {
                 surfaceFactory: (context, controller) {
                   return AndroidViewSurface(
                     controller: controller as AndroidViewController,
-                    gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
+                    gestureRecognizers: const <Factory<
+                        OneSequenceGestureRecognizer>>{},
                     hitTestBehavior: PlatformViewHitTestBehavior.opaque,
                   );
                 },
@@ -90,11 +92,15 @@ class TapGooglePayKitFlutter {
                     id: params.id,
                     viewType: 'plugin/google_pay_button',
                     layoutDirection: TextDirection.ltr,
-                    creationParams: {'type': googlePayButtonType.name},
+                    creationParams: {
+                      'type': googlePayButtonType.name,
+                      'cornerRadius': cornerRadius,
+                    },
                     creationParamsCodec: const StandardMessageCodec(),
                     onFocus: () => params.onFocusChanged(true),
                   )
-                    ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+                    ..addOnPlatformViewCreatedListener(
+                        params.onPlatformViewCreated)
                     ..create();
                 },
               ),

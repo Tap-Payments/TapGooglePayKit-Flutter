@@ -1,3 +1,8 @@
+## 1.0.8
+
+- Add `cornerRadius` parameter to `googlePayButton()` for customizing button corner radius in dp (defaults to `0`)
+- Pass `cornerRadius` directly via `creationParams` to Android `GooglePayButtonViewManager` for accurate native rendering
+
 ## 1.0.7
 
 - Replace custom GooglePayButton with PayButton for better compatibility
