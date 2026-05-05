@@ -84,7 +84,7 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
         this.activity = activity1;
         try {
             HashMap<String, Object> resultData = (HashMap<String, Object>) args.get("config");
-            String secretKey = Objects.requireNonNull(resultData.get("secretKey")).toString();
+            String publicKey = Objects.requireNonNull(resultData.get("publicKey")).toString();
             String bundleID = Objects.requireNonNull(resultData.get("bundleID")).toString();
             String countryCode = Objects.requireNonNull(resultData.get("countryCode")).toString();
             String transactionCurrency = Objects.requireNonNull(resultData.get("transactionCurrency")).toString();
@@ -104,7 +104,6 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
             SDKMode environmentMode = getSdkMode(environmentModeString);
             AllowedMethods allowedCardAuthMethods = getAllowedMethods(allowedCardAuthMethodsString);
 
-            DataConfiguration.INSTANCE.initSDK(activity1, secretKey, bundleID);
             DataConfiguration.INSTANCE.addSDKDelegate(this);
             DataConfiguration.INSTANCE.setCountryCode(countryCode);
             DataConfiguration.INSTANCE.setTransactionCurrency(transactionCurrency);
@@ -114,6 +113,8 @@ public class TapGoogleSDKDelegate implements PluginRegistry.ActivityResultListen
             DataConfiguration.INSTANCE.setGatewayId(gatewayId); //**Required GATEWAY ID**/
             DataConfiguration.INSTANCE.setGatewayMerchantID(gatewayMerchantID); //**Required GATEWAY Merchant ID**/
             DataConfiguration.INSTANCE.setAmount(amount); //**Required Amount**/
+            DataConfiguration.INSTANCE.initSDK(activity1, publicKey);
+
 
 
             switch ((String) callbackType) {

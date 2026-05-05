@@ -87,7 +87,7 @@ targetSdk 32
  * Configure SDK.
  */
  TapGooglePayKitFlutter.configureSDK(
-      secretKey: "sk_test_xxxxxxxxxxxxxxxxxx",
+      publicKey: "pk_test_xxxxxxxxxxxxxxxxxx",
       bundleId: "com.xxx.xxxxxxx",
       countryCode: "US",
       transactionCurrency: "USD",

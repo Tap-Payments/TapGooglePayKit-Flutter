@@ -40,7 +40,7 @@ class TapGooglePayKitFlutter {
 
   /// App configurations
   static void configureSDK({
-    required String secretKey, // Tap secret key
+    required String publicKey, // Tap public key
     required String bundleId, // App bundleID
     required String countryCode, // countryCode
     required String transactionCurrency, // TapCurrencyCode
@@ -52,7 +52,7 @@ class TapGooglePayKitFlutter {
     required String amount, // Amount
   }) {
     sdkConfigurations = <String, dynamic>{
-      "secretKey": secretKey,
+      "publicKey": publicKey,
       "bundleID": bundleId,
       "countryCode": countryCode,
       "transactionCurrency": transactionCurrency,
@@ -131,13 +131,13 @@ class TapGooglePayKitFlutter {
       return false;
     }
 
-    if (sdkConfigurations["secretKey"] == "" ||
-        sdkConfigurations["secretKey"] == "null" ||
-        sdkConfigurations["secretKey"] == null) {
+    if (sdkConfigurations["publicKey"] == "" ||
+        sdkConfigurations["publicKey"] == "null" ||
+        sdkConfigurations["publicKey"] == null) {
       _prepareConfigurationsErrorMap(
         errorCode: "501",
-        errorMsg: 'Invalid secrete Key',
-        errorDescription: 'Secrete key can not empty or null',
+        errorMsg: 'Invalid Public Key',
+        errorDescription: 'Public key can not empty or null',
       );
       return false;
     }

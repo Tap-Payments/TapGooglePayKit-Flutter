@@ -1,3 +1,7 @@
+## 1.0.9
+
+- Update README to use `publicKey` (`pk_test_...`) instead of `secretKey` (`sk_test_...`) in `configureSDK` example to match the actual SDK signature
+
 ## 1.0.8
 
 - Add `cornerRadius` parameter to `googlePayButton()` for customizing button corner radius in dp (defaults to `0`)
